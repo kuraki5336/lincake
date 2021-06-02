@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
+import plu from './modules/plu'
 
-// Create a new store instance.
 const store = createStore({
   state() {
     return {
@@ -43,6 +43,9 @@ const store = createStore({
         context.commit('setuserlist', data)
       })
     }
+  },
+  modules:{
+    plu
   }
 })
 
