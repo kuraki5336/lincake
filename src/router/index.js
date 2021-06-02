@@ -11,28 +11,27 @@ const routes = [
         name: "content",
         component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/contentus"),
       },
-      {
-        path: "example",
-        name: "example",
-        component: () => import(/* webpackChunkName: "auth" */ "../views/example/store"),
-      },
     ],
   },
-//   {
-//     path: "/example",
-//     component: () => import("../views/example/store"),
-//     children: [
-//         {
-//             path: 'store',
-//             component: import('../views/example/store')
-//         },
-//         {
-//             path: 'empty',
-//             component: import('../views/example/emptyVue')
-//         },
+  {
+    path: "/example",
+    component: () => import("../views/example"),
+    children: [
+        {
+            path: 'store',
+            component: import('../views/example/store')
+        },
+        {
+            path: 'mulitstore',
+            component: import('../views/example/storemodules')
+        },
+        {
+            path: 'empty',
+            component: import('../views/example/emptyVue')
+        },
 
-//     ]
-//   },
+    ]
+  },
 ];
 
 const router = createRouter({

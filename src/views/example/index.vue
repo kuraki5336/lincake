@@ -1,11 +1,11 @@
 <template>
-  <div>Empty File</div>
+  <div>練習頁</div>
+  <router-view />
 </template>
 
 <script>
 export default {
   created() {
-    
   },
   data: () => ({
     count: 0,
