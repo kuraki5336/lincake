@@ -1,12 +1,13 @@
 <template>
-  <div>練習頁</div>
-  <router-view />
+  <div>
+    <div>練習頁</div>
+    <router-view />
+  </div>
 </template>
 
 <script>
 export default {
-  created() {
-  },
+  created() {},
   data: () => ({
     count: 0,
   }),

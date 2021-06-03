@@ -1,10 +1,12 @@
 <template>
-  <div>Login</div>
-  {{ name }}
-  {{ token }}
-  <p>原價 {{ saleprice }} 特價{{ sale80 }}</p>
-  <button @click="editprice(60)">修改售價</button>
-  <button @click="editsaleprice(360)">修改原價</button>
+  <div>
+    <div>Login</div>
+    {{ name }}
+    {{ token }}
+    <p>原價 {{ saleprice }} 特價{{ sale80 }}</p>
+    <button @click="editprice(60)">修改售價</button>
+    <button @click="editsaleprice(360)">修改原價</button>
+  </div>
 </template>
 
 <script>
