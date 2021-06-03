@@ -36,7 +36,7 @@ const get = function (url) {
 
 const getRequestHeader = function () {
     return {
-        Authorization: 'abcdefg'
+        // Authorization: 'abcdefg'
     }
 }
 
@@ -58,12 +58,6 @@ const errorHandler = function (error) {
         const mapStatusError = errorCodes.find(item => item.statusCode === error.response.status)
         if (mapStatusError) {
             message = mapStatusError.message
-        }
-
-        // 增加特例輸出
-        const mexpect = apiexception.find(Element => Element.url === error.config.url)
-        if (mexpect) {
-            message = error.response.data.message
         }
 
         console.log('error status => ', error.response.status)

@@ -6,15 +6,20 @@
 </template>
 
 <script>
-import asideMenu from "../../components/asideMeun";
+import asideMenu from "@/components/asideMeun";
 export default {
   components: {
     asideMenu,
   },
-  created() {},
+  created() {
+
+  },
   data: () => ({
     count: 0,
   }),
+  mounted() {
+
+  },
   methods: {
     inc() {
       this.count++;

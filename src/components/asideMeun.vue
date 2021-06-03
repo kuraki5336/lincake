@@ -3,14 +3,16 @@
     <div class="wraps">
       <label>
         縣市:
-        <select>
-          <option>台北市</option>
+        <select v-model="currCity">
+          <option v-for="citem in cityList" :key="citem">{{ citem }}</option>
         </select>
       </label>
       <label>
         行政區:
-        <select>
-          <option>北投區</option>
+        <select v-model="currArea">
+          <option v-for="ditem in distList" :key="ditem">{{
+            ditem.name
+          }}</option>
         </select>
       </label>
     </div>
@@ -50,15 +52,45 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
-  created() {},
+  created() {
+    this.getStore();
+    this.getArea();
+  },
   data: () => ({
     count: 0,
   }),
   methods: {
+    ...mapActions("health", ["getStore", "getArea"]),
     inc() {
       this.count++;
     },
+  },
+  computed: {
+    ...mapState({}),
+    ...mapGetters("health", ["cityList", "distList"]),
+    currCity: {
+      get() {
+        return this.$store.state.health.currCity;
+      },
+      set(value) {
+        this.$store.commit("health/setcurrCity", value);
+      },
+    },
+    currArea: {
+      get() {
+        return this.$store.state.health.currArea;
+      },
+      set(value) {
+        this.$store.commit("health/setcurrArea", value);
+      },
+    },
+  },
+  watch: {
+    // distList(item){
+    //   console.log(item);
+    // }
   },
 };
 </script>

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import plu from './modules/plu'
+import health from './modules/health'
 
 const store = createStore({
   state() {
@@ -45,7 +46,8 @@ const store = createStore({
     }
   },
   modules:{
-    plu
+    plu,
+    health
   }
 })
 
