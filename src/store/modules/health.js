@@ -1,7 +1,7 @@
 import { getstorelist, getarealist } from "@/service/health";
 
 const state = () => ({
-  currCity: "台北",
+  currCity: "臺北市",
   currArea: "北投區",
   // 店
   stores: [],
@@ -11,13 +11,16 @@ const state = () => ({
 
 // getters
 const getters = {
-    cityList(state){
-        return state.location.map((item)=> item.name) || []
-    },
-    distList(state){
-        console.log('into', state);
-        return state.location.find((item)=>item.name === state.currCity)?.districts || []
-    }
+  cityList(state) {
+    return state.location.map((item) => item.name) || []
+  },
+  distList(state) {
+    console.log('into', state);
+    return state.location.find((item) => item.name === state.currCity)?.districts || []
+  }
+  filterStore(state) {
+    return state.stores.filter((item) => )
+  }
 };
 
 // actions
@@ -25,12 +28,12 @@ const actions = {
   async getStore(context) {
     const rep = await getstorelist();
     const data = rep.features.map((item) => {
-        return {
-          ...item.properties,
-          lat: item.geometry.coordinates[0],
-          long: item.geometry.coordinates[1],
-        };
-      });
+      return {
+        ...item.properties,
+        lat: item.geometry.coordinates[0],
+        long: item.geometry.coordinates[1],
+      };
+    });
     context.commit("setstores", data);
   },
   async getArea(context) {

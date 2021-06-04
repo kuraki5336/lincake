@@ -23,24 +23,22 @@
         <input type="text" placeholder="請輸入關鍵字" />
       </label>
     </div>
-
+    <!-- {{ stores }} -->
     <ul class="store-lists">
-      <li class="store-info wraps">
-        <h1>ＸＸ藥局</h1>
+      <li v-for="store in stores" :key="store.id" class="store-info wraps">
+        <h1>{{ store.name }}</h1>
 
         <div class="mask-info">
           <i class="fas fa-head-side-mask"></i>
-          <span>大人口罩: 100 個</span>
+          <span>大人口罩: {{ store.mask_adult }}個</span>
         </div>
 
         <div class="mask-info">
           <i class="fas fa-baby"></i>
-          <span>兒童口罩: 100 個</span>
+          <span>兒童口罩: {{ store.mask_child }}個</span>
         </div>
 
-        <div class="mask-info">
-          最後更新時間:
-        </div>
+        <div class="mask-info">最後更新時間:{{ store.updated }}</div>
 
         <button class="btn-store-detail">
           <i class="fas fa-info-circle"></i>
@@ -68,7 +66,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({}),
+    ...mapState("health", ["stores"]),
     ...mapGetters("health", ["cityList", "distList"]),
     currCity: {
       get() {
@@ -88,11 +86,10 @@ export default {
     },
   },
   watch: {
-    distList(item){
-      const [arr] = item
-      // console.log(arr);
-      this.currArea = arr.name
-    }
+    distList(item) {
+      const [firstitem] = item;
+      this.currArea = firstitem.name;
+    },
   },
 };
 </script>
@@ -125,6 +122,49 @@ export default {
     font-size: 1.2rem;
     line-height: 2;
     width: 110%;
+  }
+}
+
+.store-info {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  background-color: #fff;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.3em;
+  }
+  .mask-info {
+    position: relative;
+    > span {
+      position: absolute;
+      left: 1.8rem;
+    }
+  }
+  &::v-deep .highlight {
+    color: #f08d49;
+  }
+  &:hover {
+    background-color: #eee;
+  }
+  .btn-store-detail {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    right: 1.2rem;
+    top: 1.5rem;
+    font-size: 0.8rem;
+    > i {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
   }
 }
 
