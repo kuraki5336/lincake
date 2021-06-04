@@ -1,4 +1,4 @@
-<template>
+s<template>
   <div class="aside-menu">
     <div class="wraps">
       <label>
@@ -20,13 +20,13 @@
     <div class="wraps">
       <label>
         <i class="fas fa-search-location"></i> 關鍵字搜尋：
-        <input type="text" placeholder="請輸入關鍵字" />
+        <input type="text" v-model="currKeyword" placeholder="請輸入關鍵字" />
       </label>
     </div>
     <!-- {{ stores }} -->
     <ul class="store-lists">
-      <li v-for="store in stores" :key="store.id" class="store-info wraps">
-        <h1>{{ store.name }}</h1>
+      <li v-for="store in filterStore" :key="store.id" class="store-info wraps">
+        <h1 v-html="keywordHighlight(store.name)" />
 
         <div class="mask-info">
           <i class="fas fa-head-side-mask"></i>
@@ -64,10 +64,17 @@ export default {
     inc() {
       this.count++;
     },
+    keywordHighlight(val) {
+      console.log(val);
+      return val.replace(
+        new RegExp(this.currKeyword),
+        `<span class="highlight"> ${this.currKeyword}</span>`
+      );
+    },
   },
   computed: {
     ...mapState("health", ["stores"]),
-    ...mapGetters("health", ["cityList", "distList"]),
+    ...mapGetters("health", ["cityList", "distList", "filterStore"]),
     currCity: {
       get() {
         return this.$store.state.health.currCity;
@@ -82,6 +89,14 @@ export default {
       },
       set(value) {
         this.$store.commit("health/setcurrArea", value);
+      },
+    },
+    currKeyword: {
+      get() {
+        return this.$store.state.health.keyword;
+      },
+      set(value) {
+        this.$store.commit("health/setkeyword", value);
       },
     },
   },
@@ -125,6 +140,10 @@ export default {
   }
 }
 
+.store-lists {
+  width: 100%;
+}
+
 .store-info {
   position: relative;
   cursor: pointer;
@@ -140,7 +159,7 @@ export default {
   .mask-info {
     position: relative;
     > span {
-      position: absolute;
+      // position: absolute;
       left: 1.8rem;
     }
   }
@@ -171,5 +190,12 @@ export default {
 .wraps {
   padding: 1em;
   border-bottom: 1px solid #666;
+}
+
+.highlight{
+  font-weight: 800;
+  color : #e95151;
+margin: 0;
+padding:0;
 }
 </style>

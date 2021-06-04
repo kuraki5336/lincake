@@ -7,20 +7,29 @@ const state = () => ({
   stores: [],
   // 行政區域列表
   location: [],
+  keyword: "",
 });
 
 // getters
 const getters = {
   cityList(state) {
-    return state.location.map((item) => item.name) || []
+    return state.location.map((item) => item.name) || [];
   },
   distList(state) {
-    console.log('into', state);
-    return state.location.find((item) => item.name === state.currCity)?.districts || []
-  }
+    console.log("into", state);
+    return (
+      state.location.find((item) => item.name === state.currCity)?.districts ||
+      []
+    );
+  },
   filterStore(state) {
-    return state.stores.filter((item) => )
-  }
+    return state.stores.filter(
+      (item) =>
+        item.county === state.currCity &&
+        item.town === state.currArea &&
+        item.name.includes(state.keyword)
+    );
+  },
 };
 
 // actions
@@ -55,6 +64,9 @@ const mutations = {
   },
   setlocation(state, payload) {
     state.location = payload;
+  },
+  setkeyword(state, payload) {
+    state.keyword = payload;
   },
 };
 
