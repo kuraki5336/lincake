@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <AsideMenu></AsideMenu>
-    <div class="mask-map"></div>
+    <MaskMap></MaskMap>
     <Lightbox></Lightbox>
   </div>
 </template>
@@ -9,10 +9,13 @@
 <script>
 import AsideMenu from "@/components/asideMeun";
 import Lightbox from "@/components/lightbox.vue";
+import MaskMap from "@/components/maskMap.vue";
+
 export default {
   components: {
     AsideMenu,
     Lightbox,
+    MaskMap
   },
   created() {},
   data: () => ({
@@ -35,17 +38,6 @@ export default {
   }
   > div {
     float: left;
-  }
-}
-
-.mask-map {
-  position: relative;
-  width: 75%;
-  height: 100%;
-  background-color: #aaa;
-  z-index: 10;
-  &.full {
-    width: 100%;
   }
 }
 </style>

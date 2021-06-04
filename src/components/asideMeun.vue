@@ -23,7 +23,6 @@ s<template>
         <input type="text" v-model="currKeyword" placeholder="請輸入關鍵字" />
       </label>
     </div>
-    <!-- {{ stores }} -->
     <ul class="store-lists">
       <li v-for="store in filterStore" :key="store.id" class="store-info wraps">
         <h1 v-html="keywordHighlight(store.name)" />
@@ -40,9 +39,9 @@ s<template>
 
         <div class="mask-info">最後更新時間:{{ store.updated }}</div>
 
-        <button class="btn-store-detail" @click="onOpeninfo()">
+        <button class="btn-store-detail" @click="onOpeninfo(store.id)">
           <i class="fas fa-info-circle"></i>
-          看詳細資訊
+          看詳細資訊{{store.id}}
         </button>
       </li>
     </ul>
@@ -67,8 +66,10 @@ export default {
         `<span class="highlight"> ${this.currKeyword}</span>`
       );
     },
-    onOpeninfo() {
+    onOpeninfo(val) {
       this.showmodal = true;
+      console.log();
+      this.storeid = val;
     },
   },
   computed: {
@@ -104,6 +105,11 @@ export default {
       },
       set(value) {
         this.$store.commit("setshowmodal", value);
+      },
+    },
+    storeid: {
+      set(value) {
+        this.$store.commit("health/setstoreid", value); 
       },
     },
   },

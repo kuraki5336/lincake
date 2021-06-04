@@ -8,6 +8,8 @@ const state = () => ({
   // 行政區域列表
   location: [],
   keyword: "",
+  // 選中的店號
+  storeid: "",
 });
 
 // getters
@@ -16,7 +18,6 @@ const getters = {
     return state.location.map((item) => item.name) || [];
   },
   distList(state) {
-    console.log("into", state);
     return (
       state.location.find((item) => item.name === state.currCity)?.districts ||
       []
@@ -30,6 +31,7 @@ const getters = {
         item.name.includes(state.keyword)
     );
   },
+
 };
 
 // actions
@@ -49,6 +51,10 @@ const actions = {
     const rep = await getarealist();
     context.commit("setlocation", rep);
   },
+
+  getLocation(state, getters){
+    return getters.distList.find((item)=> item.name === state.currArea)
+  }
 };
 
 // mutations
@@ -67,6 +73,9 @@ const mutations = {
   },
   setkeyword(state, payload) {
     state.keyword = payload;
+  },
+  setstoreid(state, payload) {
+    state.storeid = payload;
   },
 };
 

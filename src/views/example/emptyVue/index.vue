@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name:"example",
   created() {},
   data: () => ({
     count: 0,

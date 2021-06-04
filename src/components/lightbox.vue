@@ -1,18 +1,18 @@
 <template>
   <transition name="modal">
     <div class="modal-mask" v-show="showModal">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click.self="onClose">
         <div class="modal-container">
           <div class="modal-body">
             <!-- 內容放這裡 -->
-            <h1 class="store-name">藥局名稱</h1>
+            <h1 class="store-name">{{ FCurrstore.name }}</h1>
             <hr />
             <h2 class="title">營業時間</h2>
             <table>
               <thead>
                 <tr>
                   <th></th>
-                  <th>ㄧ</th>
+                  <th>一</th>
                   <th>二</th>
                   <th>三</th>
                   <th>四</th>
@@ -24,40 +24,28 @@
               <tbody>
                 <tr>
                   <th>早上</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td v-for="(item, index) in FProvideService[0]" :key="index">
+                    {{ item }}
+                  </td>
                 </tr>
                 <tr>
                   <th>中午</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td v-for="(item, index) in FProvideService[1]" :key="index">
+                    {{ item }}
+                  </td>
                 </tr>
                 <tr>
                   <th>晚上</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td v-for="(item, index) in FProvideService[2]" :key="index">
+                    {{ item }}
+                  </td>
                 </tr>
               </tbody>
             </table>
 
-            <h2 class="title">地址 XXXXXXX</h2>
-            <h2 class="title">電話 XXXXXXX</h2>
-            <h2 class="title">備註 XXXXXXX</h2>
+            <h2 class="title">地址: {{ FCurrstore.address }} </h2>
+            <h2 class="title">電話: {{ FCurrstore.phone }}</h2>
+            <h2 class="title">備註: {{ FCurrstore.note }}</h2>
           </div>
         </div>
       </div>
@@ -77,15 +65,40 @@ export default {
         this.$store.commit("setshowmodal", value);
       },
     },
+    storeid: {
+      get() {
+        return this.$store.state.health.storeid;
+      },
+    },
+    FCurrstore() {
+      return this.$store.state.health.stores.find(
+        (item) => (item.id === this.storeid)
+      ) || "";
+    },
+    FProvideService() {
+      let mstrlist = this.FCurrstore?.service_periods || "";
+      mstrlist = mstrlist.replace(/N/g, "O").replace(/Y/g, "X");
+
+      return mstrlist
+        ? [
+            mstrlist.slice(0, 7).split(""),
+            mstrlist.slice(7, 14).split(""),
+            mstrlist.slice(14, 21).split(""),
+          ]
+        : mstrlist;
+    },
+  },
+  mounted() {
+    console.log(`getid`, this.storeid);
   },
   methods: {
     onClose() {
-      this.showmodal = false;
+      this.showModal = false;
     },
   },
 };
 </script>
-
+ 
 <style scoped lang="scss">
 .modal-mask {
   position: fixed;
