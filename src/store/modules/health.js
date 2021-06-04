@@ -15,7 +15,8 @@ const getters = {
         return state.location.map((item)=> item.name) || []
     },
     distList(state){
-        return state.location.find((item)=>item.name = state.currCity)?.districts || []
+        console.log('into', state);
+        return state.location.find((item)=>item.name === state.currCity)?.districts || []
     }
 };
 
@@ -30,7 +31,6 @@ const actions = {
           long: item.geometry.coordinates[1],
         };
       });
-      console.log(data);
     context.commit("setstores", data);
   },
   async getArea(context) {

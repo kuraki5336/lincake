@@ -88,9 +88,11 @@ export default {
     },
   },
   watch: {
-    // distList(item){
-    //   console.log(item);
-    // }
+    distList(item){
+      const [arr] = item
+      // console.log(arr);
+      this.currArea = arr.name
+    }
   },
 };
 </script>
