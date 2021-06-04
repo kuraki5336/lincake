@@ -40,7 +40,7 @@ s<template>
 
         <div class="mask-info">最後更新時間:{{ store.updated }}</div>
 
-        <button class="btn-store-detail">
+        <button class="btn-store-detail" @click="onOpeninfo()">
           <i class="fas fa-info-circle"></i>
           看詳細資訊
         </button>
@@ -61,15 +61,14 @@ export default {
   }),
   methods: {
     ...mapActions("health", ["getStore", "getArea"]),
-    inc() {
-      this.count++;
-    },
     keywordHighlight(val) {
-      console.log(val);
       return val.replace(
         new RegExp(this.currKeyword),
         `<span class="highlight"> ${this.currKeyword}</span>`
       );
+    },
+    onOpeninfo() {
+      this.showmodal = true;
     },
   },
   computed: {
@@ -97,6 +96,14 @@ export default {
       },
       set(value) {
         this.$store.commit("health/setkeyword", value);
+      },
+    },
+    showmodal: {
+      get() {
+        return this.$store.state.gShowModal;
+      },
+      set(value) {
+        this.$store.commit("setshowmodal", value);
       },
     },
   },
@@ -192,10 +199,10 @@ export default {
   border-bottom: 1px solid #666;
 }
 
-.highlight{
+.highlight {
   font-weight: 800;
-  color : #e95151;
-margin: 0;
-padding:0;
+  color: #e95151;
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -10,7 +10,8 @@ const store = createStore({
       token: 'qd281928d8ji',
       price: 199,
       saleprice: 500,
-      users: []
+      users: [],
+      gShowModal: false
     }
   },
   getters: {
@@ -30,6 +31,10 @@ const store = createStore({
     },
     setuserlist(state, payload) {
       state.users = payload
+    },
+    setshowmodal(state, payload) {
+      console.log(`ssss`);
+      state.gShowModal = payload
     }
   },
   actions: {
@@ -45,7 +50,7 @@ const store = createStore({
       })
     }
   },
-  modules:{
+  modules: {
     plu,
     health
   }

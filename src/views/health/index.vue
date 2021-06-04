@@ -1,30 +1,25 @@
 <template>
   <div class="content">
-    <asideMenu></asideMenu>
+    <AsideMenu></AsideMenu>
     <div class="mask-map"></div>
+    <Lightbox></Lightbox>
   </div>
 </template>
 
 <script>
-import asideMenu from "@/components/asideMeun";
+import AsideMenu from "@/components/asideMeun";
+import Lightbox from "@/components/lightbox.vue";
 export default {
   components: {
-    asideMenu,
+    AsideMenu,
+    Lightbox,
   },
-  created() {
-
-  },
+  created() {},
   data: () => ({
     count: 0,
   }),
-  mounted() {
-
-  },
-  methods: {
-    inc() {
-      this.count++;
-    },
-  },
+  mounted() {},
+  methods: {},
 };
 </script>
 
