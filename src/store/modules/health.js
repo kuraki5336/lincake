@@ -31,7 +31,10 @@ const getters = {
         item.name.includes(state.keyword)
     );
   },
-
+  getLocation(state, getters){
+    // 目前所選行政區資訊
+    return getters.distList.find((item)=> item.name === state.currArea)
+  }
 };
 
 // actions
@@ -52,9 +55,7 @@ const actions = {
     context.commit("setlocation", rep);
   },
 
-  getLocation(state, getters){
-    return getters.distList.find((item)=> item.name === state.currArea)
-  }
+
 };
 
 // mutations

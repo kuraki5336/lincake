@@ -24,7 +24,12 @@ s<template>
       </label>
     </div>
     <ul class="store-lists">
-      <li v-for="store in filterStore" :key="store.id" class="store-info wraps">
+      <li
+        v-for="store in filterStore"
+        :key="store.id"
+        class="store-info wraps"
+        @click="$emit('triggerMark', store.id)"
+      >
         <h1 v-html="keywordHighlight(store.name)" />
 
         <div class="mask-info">
@@ -41,7 +46,7 @@ s<template>
 
         <button class="btn-store-detail" @click="onOpeninfo(store.id)">
           <i class="fas fa-info-circle"></i>
-          看詳細資訊{{store.id}}
+          看詳細資訊
         </button>
       </li>
     </ul>
@@ -109,7 +114,7 @@ export default {
     },
     storeid: {
       set(value) {
-        this.$store.commit("health/setstoreid", value); 
+        this.$store.commit("health/setstoreid", value);
       },
     },
   },

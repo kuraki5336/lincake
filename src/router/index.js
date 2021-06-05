@@ -35,7 +35,7 @@ const routes = [
   {
     path: "/health",
     component: () => import("../views/health")
-  }
+  },
 ];
 
 const router = createRouter({

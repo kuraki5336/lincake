@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <AsideMenu></AsideMenu>
-    <MaskMap></MaskMap>
+    <AsideMenu ref="ly_mapmenu" @triggerMark="openPopup"></AsideMenu>
+    <MaskMap ref="ly_map"></MaskMap>
     <Lightbox></Lightbox>
   </div>
 </template>
@@ -15,14 +15,19 @@ export default {
   components: {
     AsideMenu,
     Lightbox,
-    MaskMap
+    MaskMap,
   },
   created() {},
   data: () => ({
     count: 0,
   }),
   mounted() {},
-  methods: {},
+  methods: {
+    openPopup(id){
+      console.log(`id`, id);
+      this.$refs.ly_map.triggerPopup(id)
+    }
+  },
 };
 </script>
 

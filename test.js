@@ -1,3 +1,5 @@
-const a = "YYYYNYY"
-console.log(a.slice(0,7).split(''));
-// mstore.service_periods.slice(0,7).split('')
+const a = [1,2,3,4,5]
+console.log(a);
+
+a.length = 0 
+console.log(a);
