@@ -29,6 +29,10 @@ const routes = [
             path: 'empty',
             component: import('../views/example/emptyVue')
         },
+        {
+            path: 'composition',
+            component: import('../views/example/composition')
+        },
 
     ]
   },
