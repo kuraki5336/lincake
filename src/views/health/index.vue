@@ -8,7 +8,7 @@
 
 <script>
 import { provide } from "vue";
-import { mapStore } from "@/Composition/health";
+import mapStore  from "@/Composition/health";
 import AsideMenu from "@/components/asideMeun";
 import Lightbox from "@/components/lightbox.vue";
 import MaskMap from "@/components/maskMap.vue";
@@ -25,9 +25,7 @@ export default {
     mapStore.getArea();
   },
   created() {},
-  data: () => ({
-    count: 0,
-  }),
+  data: () => ({}),
   mounted() {},
   methods: {
     // openPopup(id) {

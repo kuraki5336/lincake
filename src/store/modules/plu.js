@@ -7,7 +7,6 @@ const state = () => ({
 // getters
 const getters = {
   getNowitem(state) {
-    console.log(state);
     return state.nowitem 
   },
 };

@@ -48,7 +48,6 @@ export default {
         get: () => initcount.value,
         set: (val) => {
           initcount.value = val * 2;
-          vvvv;
         },
       }),
       doublecount: computed(() => FCount.amount * initcount.value),

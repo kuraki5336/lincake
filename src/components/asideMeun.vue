@@ -1,9 +1,9 @@
-s<template>
+<template>
   <div class="aside-menu">
     <div class="wraps">
       <label>
         縣市:
-        <select v-model="currCity">
+        <select v-model="state.currCity">
           <option v-for="citem in state.cityList" :key="citem">{{
             citem
           }}</option>
@@ -11,7 +11,7 @@ s<template>
       </label>
       <label>
         行政區:
-        <select v-model="currArea">
+        <select v-model="state.currArea">
           <option v-for="ditem in state.distList" :key="ditem">{{
             ditem.name
           }}</option>
@@ -57,18 +57,21 @@ s<template>
 
 <script>
 import { inject, watchEffect } from "vue";
+import { isEmpty } from "@/utils/libFunction";
 export default {
   setup() {
     const mapStore = inject(`mapStore`);
     const { state } = mapStore;
     const keywordHighlight = (val) => {
       return val.replace(
-        new RegExp(this.currKeyword),
-        `<span class="highlight"> ${this.currKeyword}</span>`
+        new RegExp(state.keyword),
+        `<span class="highlight"> ${state.keyword}</span>`
       );
     };
 
+    // state.distList
     watchEffect(() => {
+      if (isEmpty(state.distList)) return;
       const [firstitem] = state.distList;
       state.currArea = firstitem.name;
     });
@@ -84,16 +87,8 @@ export default {
       onOpeninfo,
     };
   },
-  data: () => ({
-    count: 0,
-  }),
+  data: () => ({}),
   computed: {},
-  // watch: {
-  //   distList(item) {
-  //     const [firstitem] = item;
-  //     this.currArea = firstitem.name;
-  //   },
-  // },
 };
 </script>
 

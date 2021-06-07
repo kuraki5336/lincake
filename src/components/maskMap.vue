@@ -3,9 +3,11 @@
 </template>
 
 <script>
-import { ref, inject, watchEffect, onMounted } from "vue";
+import { ref, watchEffect, onMounted } from "vue";
+import state from "@/Composition/health";
 import L from "leaflet";
-// import { mapGetters } from "vuex";
+import { isEmpty } from "@/utils/libFunction";
+
 const map = ref(null);
 const markers = [];
 const myIcon = {
@@ -42,47 +44,64 @@ const clearLocation = () => {
   this.markers.length = 0;
 };
 
+const triggerPopup = (markerId) => {
+  const marker = markers.find((item) => item.markerId === markerId);
+  map.flyTo(new L.LatLng(marker.long, marker.lat), 15);
+  marker.openPopup();
+};
+
 export default {
   name: "maskMap",
-  setup() {},
+  setup() {
+    onMounted(() => {
+      // 初始化中心位置
+      map.value = L.map("map", {
+        center: [25.03, 121.55],
+        zoom: 14,
+      });
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '<a target="_blank" href="https://www.openstreetmap.org/">© OpenStreetMap 貢獻者</a>',
+        maxZoom: 18,
+      }).addTo(map.value);
+    });
+
+    // state.filterStore
+    watchEffect(() => {
+      console.log(`state.filterStore`);
+      if (isEmpty(state.filterStore)) return;
+      this.clearLocation();
+      state.filterStore.forEach((item) => {
+        this.addMark(item);
+      });
+    });
+
+    // state.getLocation
+    watchEffect(() => {
+      console.log(`getLocation`, state);
+      if (isEmpty(state.getLocation)) return;
+      map.panTo(
+        new L.latLng(state.getLocation.latitude, state.getLocation.longitude)
+      );
+    });
+
+    return {
+      addMark,
+      clearLocation,
+      triggerPopup,
+    };
+  },
   created() {},
   data() {
     return {};
   },
-  methods: {
-    triggerPopup(markerId) {
-      const marker = this.markers.find((item) => item.markerId === markerId);
-      this.map.flyTo(new L.LatLng(marker.long, marker.lat), 15);
-      marker.openPopup();
-    },
-  },
+  methods: {},
   computed: {
-    ...mapGetters("health", ["getLocation", "filterStore"]),
+    // ...mapGetters("health", ["getLocation", "filterStore"]),
   },
-  mounted() {
-    // 初始化中心位置
-    this.map = L.map("map", {
-      center: [25.03, 121.55],
-      zoom: 14,
-    });
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '<a target="_blank" href="https://www.openstreetmap.org/">© OpenStreetMap 貢獻者</a>',
-      maxZoom: 18,
-    }).addTo(this.map);
-  },
-  watch: {
-    getLocation(location) {
-      this.map.panTo(new L.latLng(location.latitude, location.longitude));
-    },
-    filterStore(store) {
-      this.clearLocation();
-      store.forEach((item) => {
-        this.addMark(item);
-      });
-    },
-  },
+  mounted() {},
+  watch: {},
 };
 </script>
 

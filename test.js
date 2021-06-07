@@ -1,5 +1,7 @@
-const a = [1,2,3,4,5]
-console.log(a);
+const a= undefined
 
-a.length = 0 
-console.log(a);
+if (a) {
+  console.log(54321);
+} else {
+  console.log(12345);
+}
