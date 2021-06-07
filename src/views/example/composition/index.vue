@@ -7,13 +7,28 @@
     <h1>{{ doublecount }}</h1> -->
     <h1>{{ data.calcCount }}</h1>
     <h1>{{ data.doublecount }}</h1>
-    <button @click="data.calcCount(5)">click me</button>
+    <button @click="data.calcCount = data.calcCount">click me</button>
+    <hr />
+    <h1>{{ readonlyCount.count }}</h1>
+    <h1>{{ copy.count }}</h1>
+    <button @click="plus">click me</button>
+    <button @click="stop">stop watch effect plus</button>
+    <hr />
+    {{ fatherArr }}
   </div>
 </template>
 
 <script>
 import gCount from "@/Composition/counter";
-import { ref, computed, reactive } from "vue";
+import {
+  ref,
+  computed,
+  reactive,
+  readonly,
+  watch,
+  watchEffect,
+  inject,
+} from "vue";
 export default {
   setup() {
     const FCount = gCount();
@@ -25,19 +40,53 @@ export default {
     //   FCount,
     // };
 
-    const initcount = ref(0);
+    const fatherArr = inject(`FArr`);
+
+    const initcount = ref(5);
     const data = reactive({
       calcCount: computed({
         get: () => initcount.value,
         set: (val) => {
-          initcount.value = val+3;
+          initcount.value = val * 2;
+          vvvv;
         },
       }),
-      doublecount: computed(() => 3 * initcount.value),
+      doublecount: computed(() => FCount.amount * initcount.value),
     });
+
+    // 監測單一物件
+    watch(data, (val, oldval) => {
+      console.log(`new val ${val.calcCount} old val ${oldval.calcCount}`);
+    });
+
+    // 監測reactive 這個寫法比較優質
+    watch(
+      () => data.calcCount,
+      (val, oldval) => {
+        console.log(`reactive new val ${val} old val ${oldval}`);
+      }
+    );
+
+    const readonlyCount = reactive({ count: 0 });
+    const copy = readonly(readonlyCount);
+    const plus = () => readonlyCount.count++;
+
+    const stop = watchEffect(() => {
+      console.log("errect readonlyCount", readonlyCount.count);
+    });
+
+    watchEffect(() => {
+      console.log("errect data", data.calcCount);
+    });
+
     return {
       data,
       FCount,
+      readonlyCount,
+      copy,
+      plus,
+      stop,
+      fatherArr,
     };
   },
 };

@@ -33,7 +33,6 @@ const store = createStore({
       state.users = payload
     },
     setshowmodal(state, payload) {
-      console.log(`ssss`);
       state.gShowModal = payload
     }
   },

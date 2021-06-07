@@ -4,13 +4,15 @@ s<template>
       <label>
         縣市:
         <select v-model="currCity">
-          <option v-for="citem in cityList" :key="citem">{{ citem }}</option>
+          <option v-for="citem in state.cityList" :key="citem">{{
+            citem
+          }}</option>
         </select>
       </label>
       <label>
         行政區:
         <select v-model="currArea">
-          <option v-for="ditem in distList" :key="ditem">{{
+          <option v-for="ditem in state.distList" :key="ditem">{{
             ditem.name
           }}</option>
         </select>
@@ -20,12 +22,12 @@ s<template>
     <div class="wraps">
       <label>
         <i class="fas fa-search-location"></i> 關鍵字搜尋：
-        <input type="text" v-model="currKeyword" placeholder="請輸入關鍵字" />
+        <input type="text" v-model="state.keyword" placeholder="請輸入關鍵字" />
       </label>
     </div>
     <ul class="store-lists">
       <li
-        v-for="store in filterStore"
+        v-for="store in state.filterStore"
         :key="store.id"
         class="store-info wraps"
         @click="$emit('triggerMark', store.id)"
@@ -54,76 +56,44 @@ s<template>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { inject, watchEffect } from "vue";
 export default {
-  created() {
-    this.getStore();
-    this.getArea();
-  },
-  data: () => ({
-    count: 0,
-  }),
-  methods: {
-    ...mapActions("health", ["getStore", "getArea"]),
-    keywordHighlight(val) {
+  setup() {
+    const mapStore = inject(`mapStore`);
+    const { state } = mapStore;
+    const keywordHighlight = (val) => {
       return val.replace(
         new RegExp(this.currKeyword),
         `<span class="highlight"> ${this.currKeyword}</span>`
       );
-    },
-    onOpeninfo(val) {
-      this.showmodal = true;
-      console.log();
-      this.storeid = val;
-    },
+    };
+
+    watchEffect(() => {
+      const [firstitem] = state.distList;
+      state.currArea = firstitem.name;
+    });
+
+    const onOpeninfo = (val) => {
+      state.showModal = true;
+      state.storeid = val;
+    };
+
+    return {
+      state,
+      keywordHighlight,
+      onOpeninfo,
+    };
   },
-  computed: {
-    ...mapState("health", ["stores"]),
-    ...mapGetters("health", ["cityList", "distList", "filterStore"]),
-    currCity: {
-      get() {
-        return this.$store.state.health.currCity;
-      },
-      set(value) {
-        this.$store.commit("health/setcurrCity", value);
-      },
-    },
-    currArea: {
-      get() {
-        return this.$store.state.health.currArea;
-      },
-      set(value) {
-        this.$store.commit("health/setcurrArea", value);
-      },
-    },
-    currKeyword: {
-      get() {
-        return this.$store.state.health.keyword;
-      },
-      set(value) {
-        this.$store.commit("health/setkeyword", value);
-      },
-    },
-    showmodal: {
-      get() {
-        return this.$store.state.gShowModal;
-      },
-      set(value) {
-        this.$store.commit("setshowmodal", value);
-      },
-    },
-    storeid: {
-      set(value) {
-        this.$store.commit("health/setstoreid", value);
-      },
-    },
-  },
-  watch: {
-    distList(item) {
-      const [firstitem] = item;
-      this.currArea = firstitem.name;
-    },
-  },
+  data: () => ({
+    count: 0,
+  }),
+  computed: {},
+  // watch: {
+  //   distList(item) {
+  //     const [firstitem] = item;
+  //     this.currArea = firstitem.name;
+  //   },
+  // },
 };
 </script>
 

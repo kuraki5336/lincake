@@ -3,51 +3,53 @@
 </template>
 
 <script>
+import { ref, inject, watchEffect, onMounted } from "vue";
 import L from "leaflet";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
+const map = ref(null);
+const markers = [];
+const myIcon = {
+  iconUrl: "../assets/icon/location.png",
+  shadowUrl: "../assets/icon/location.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+};
+
+const addMark = (item) => {
+  const marker = L.marker([item.long, item.lat], myIcon)
+    .addTo(this.map)
+    .bindPopup(`<h2 class="popup-name">${item.name}</h2>`);
+
+  // 替 marker 加入 id 與經緯度資訊
+  marker.markerId = item.id;
+  marker.long = item.long;
+  marker.lat = item.lat;
+
+  // 將 marker push 到陣列裡
+  this.markers.push(marker);
+};
+
+const clearLocation = () => {
+  this.map.eachLayer((layer) => {
+    if (layer instanceof L.Marker) {
+      console.log(layer);
+      this.map.removeLayer(layer);
+    }
+  });
+  // 清空標註
+  this.markers.length = 0;
+};
+
 export default {
   name: "maskMap",
+  setup() {},
   created() {},
   data() {
-    return {
-      map: {},
-      markers: [],
-    };
+    return {};
   },
   methods: {
-    addMark(item) {
-      const myIcon = {
-        iconUrl: "../assets/icon/location.png",
-        shadowUrl: "../assets/icon/location.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      };
-
-      const marker = L.marker([item.long, item.lat], myIcon)
-        .addTo(this.map)
-        .bindPopup(`<h2 class="popup-name">${item.name}</h2>`);
-
-      // 替 marker 加入 id 與經緯度資訊
-      marker.markerId = item.id;
-      marker.long = item.long;
-      marker.lat = item.lat;
-
-      // 將 marker push 到陣列裡
-      this.markers.push(marker);
-    },
-
-    clearLocation() {
-      this.map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
-          console.log(layer);
-          this.map.removeLayer(layer);
-        }
-      });
-      // 清空標註
-      this.markers.length = 0;
-    },
     triggerPopup(markerId) {
       const marker = this.markers.find((item) => item.markerId === markerId);
       this.map.flyTo(new L.LatLng(marker.long, marker.lat), 15);

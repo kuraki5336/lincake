@@ -1,12 +1,14 @@
 <template>
   <div class="content">
-    <AsideMenu ref="ly_mapmenu" @triggerMark="openPopup"></AsideMenu>
-    <MaskMap ref="ly_map"></MaskMap>
+    <AsideMenu></AsideMenu>
+    <MaskMap></MaskMap>
     <Lightbox></Lightbox>
   </div>
 </template>
 
 <script>
+import { provide } from "vue";
+import { mapStore } from "@/Composition/health";
 import AsideMenu from "@/components/asideMeun";
 import Lightbox from "@/components/lightbox.vue";
 import MaskMap from "@/components/maskMap.vue";
@@ -17,16 +19,21 @@ export default {
     Lightbox,
     MaskMap,
   },
+  setup() {
+    provide("mapStore", mapStore);
+    mapStore.getStore();
+    mapStore.getArea();
+  },
   created() {},
   data: () => ({
     count: 0,
   }),
   mounted() {},
   methods: {
-    openPopup(id){
-      console.log(`id`, id);
-      this.$refs.ly_map.triggerPopup(id)
-    }
+    // openPopup(id) {
+    //   console.log(`id`, id);
+    //   this.$refs.ly_map.triggerPopup(id);
+    // },
   },
 };
 </script>
