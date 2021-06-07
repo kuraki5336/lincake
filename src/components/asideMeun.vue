@@ -30,7 +30,7 @@
         v-for="store in state.filterStore"
         :key="store.id"
         class="store-info wraps"
-        @click="$emit('triggerMark', store.id)"
+        @click="triggerPopup(store.id)"
       >
         <h1 v-html="keywordHighlight(store.name)" />
 
@@ -62,6 +62,8 @@ export default {
   setup() {
     const mapStore = inject(`mapStore`);
     const { state } = mapStore;
+    const map = inject(`map`);
+    const { triggerPopup } = map;
     const keywordHighlight = (val) => {
       return val.replace(
         new RegExp(state.keyword),
@@ -85,6 +87,7 @@ export default {
       state,
       keywordHighlight,
       onOpeninfo,
+      triggerPopup,
     };
   },
   data: () => ({}),

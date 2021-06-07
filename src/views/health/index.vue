@@ -2,25 +2,27 @@
   <div class="content">
     <AsideMenu></AsideMenu>
     <MaskMap></MaskMap>
-    <Lightbox></Lightbox>
+    <!-- <Lightbox></Lightbox> -->
   </div>
 </template>
 
 <script>
 import { provide } from "vue";
-import mapStore  from "@/Composition/health";
+import mapStore from "@/Composition/health";
+import map from "@/Composition/map";
 import AsideMenu from "@/components/asideMeun";
-import Lightbox from "@/components/lightbox.vue";
+// import Lightbox from "@/components/lightbox.vue";
 import MaskMap from "@/components/maskMap.vue";
 
 export default {
   components: {
     AsideMenu,
-    Lightbox,
+    // Lightbox,
     MaskMap,
   },
   setup() {
     provide("mapStore", mapStore);
+    provide("map", map);
     mapStore.getStore();
     mapStore.getArea();
   },
