@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask" v-show="showModal">
+    <div class="modal-mask" v-show="state.showModal">
       <div class="modal-wrapper" @click.self="onClose">
         <div class="modal-container">
           <div class="modal-body">
@@ -43,7 +43,7 @@
               </tbody>
             </table>
 
-            <h2 class="title">地址: {{ FCurrstore.address }} </h2>
+            <h2 class="title">地址: {{ FCurrstore.address }}</h2>
             <h2 class="title">電話: {{ FCurrstore.phone }}</h2>
             <h2 class="title">備註: {{ FCurrstore.note }}</h2>
           </div>
@@ -54,29 +54,18 @@
 </template>
 
 <script>
+import { inject, computed } from "vue";
 export default {
   name: "Lightbox",
-  computed: {
-    showModal: {
-      get() {
-        return this.$store.state.gShowModal;
-      },
-      set(value) {
-        this.$store.commit("setshowmodal", value);
-      },
-    },
-    storeid: {
-      get() {
-        return this.$store.state.health.storeid;
-      },
-    },
-    FCurrstore() {
-      return this.$store.state.health.stores.find(
-        (item) => (item.id === this.storeid)
-      ) || "";
-    },
-    FProvideService() {
-      let mstrlist = this.FCurrstore?.service_periods || "";
+  setup() {
+    const mapStore = inject("mapStore");
+    const { state } = mapStore;
+    const FCurrstore = computed(() => {
+      return state.stores.find((item) => item.id === state.storeid) || "";
+    });
+
+    const FProvideService = computed(() => {
+      let mstrlist = FCurrstore.value.service_periods || "";
       mstrlist = mstrlist.replace(/N/g, "O").replace(/Y/g, "X");
 
       return mstrlist
@@ -86,19 +75,19 @@ export default {
             mstrlist.slice(14, 21).split(""),
           ]
         : mstrlist;
-    },
-  },
-  mounted() {
-    console.log(`getid`, this.storeid);
-  },
-  methods: {
-    onClose() {
-      this.showModal = false;
-    },
+    });
+    const onClose = () => (state.showModal = false);
+
+    return {
+      state,
+      FCurrstore,
+      FProvideService,
+      onClose,
+    };
   },
 };
 </script>
- 
+
 <style scoped lang="scss">
 .modal-mask {
   position: fixed;

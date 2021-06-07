@@ -2,7 +2,7 @@
   <div class="content">
     <AsideMenu></AsideMenu>
     <MaskMap></MaskMap>
-    <!-- <Lightbox></Lightbox> -->
+    <Lightbox></Lightbox>
   </div>
 </template>
 
@@ -11,13 +11,13 @@ import { provide } from "vue";
 import mapStore from "@/Composition/health";
 import map from "@/Composition/map";
 import AsideMenu from "@/components/asideMeun";
-// import Lightbox from "@/components/lightbox.vue";
+import Lightbox from "@/components/lightbox.vue";
 import MaskMap from "@/components/maskMap.vue";
 
 export default {
   components: {
     AsideMenu,
-    // Lightbox,
+    Lightbox,
     MaskMap,
   },
   setup() {
@@ -29,12 +29,7 @@ export default {
   created() {},
   data: () => ({}),
   mounted() {},
-  methods: {
-    // openPopup(id) {
-    //   console.log(`id`, id);
-    //   this.$refs.ly_map.triggerPopup(id);
-    // },
-  },
+  methods: {},
 };
 </script>
 
