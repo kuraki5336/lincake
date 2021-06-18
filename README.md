@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 套件清單
+vue-sse - https://www.npmjs.com/package/vue-sse

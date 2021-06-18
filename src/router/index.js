@@ -17,23 +17,26 @@ const routes = [
     path: "/example",
     component: () => import("../views/example"),
     children: [
-        {
-            path: 'store',
-            component: import('../views/example/store')
-        },
-        {
-            path: 'mulitstore',
-            component: import('../views/example/storemodules')
-        },
-        {
-            path: 'empty',
-            component: import('../views/example/emptyVue')
-        },
-        {
-            path: 'composition',
-            component: import('../views/example/composition')
-        },
-
+      {
+        path: 'store',
+        component: import('../views/example/store')
+      },
+      {
+        path: 'mulitstore',
+        component: import('../views/example/storemodules')
+      },
+      {
+        path: 'empty',
+        component: import('../views/example/emptyVue')
+      },
+      {
+        path: 'composition',
+        component: import('../views/example/composition')
+      },
+      {
+        path: 'sse',
+        component: import('../views/example/sse')
+      },
     ]
   },
   {
