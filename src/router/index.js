@@ -45,8 +45,8 @@ const routes = [
   }
   ,
   {
-    path: "/health",
-    component: () => import("../views/health")
+    path: "/child",
+    component: () => import("../views/child")
   },
 ];
 
