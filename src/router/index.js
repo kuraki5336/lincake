@@ -34,11 +34,16 @@ const routes = [
         component: import('../views/example/composition')
       },
       {
-        path: 'sse',
-        component: import('../views/example/sse')
+        path: 'websocket',
+        component: import('../views/example/websocket')
       },
     ]
   },
+  {
+    path: "/health",
+    component: () => import("../views/health")
+  }
+  ,
   {
     path: "/health",
     component: () => import("../views/health")
