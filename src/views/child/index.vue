@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <el-container>
+    <el-container class="cContainer">
       <el-header>
         <h1>阿玄好好學習區</h1>
       </el-header>
@@ -65,7 +65,7 @@ export default {
   created() {},
   data: () => ({
     // 0加法 1減法
-    FCalctype: 0,
+    FCalctype: `加法`,
     upnum: 0,
     downnum: 0,
     nowUpnum: "準備中",
@@ -101,7 +101,7 @@ export default {
       this.nowDownnum = "準備中";
       this.nowAns = "準備中";
       this.state = "quest";
-      this.FCalctype = '加法';
+      this.FCalctype = "加法";
       this.upnum = 0;
       this.downnum = 0;
     },
@@ -120,6 +120,8 @@ export default {
 
 <style lang="scss">
 .el-header {
+  background-color: rgba(60, 60, 60, 0.931);
+  color: rgb(204, 204, 204);
   height: 75px;
   // width: 100vh;
   left: 0;
@@ -135,11 +137,23 @@ export default {
   }
 }
 
+.el-main {
+  background-color: rgba(30, 30, 30, 0.931);
+}
+.cContainer {
+  height: 100%;
+}
+
 .el-context {
   border-bottom-style: 1px solid #999;
   .el-label {
+    color: rgb(204, 204, 204);
     margin: 55px 0 20px;
   }
+}
+
+.el-aside {
+  background-color: rgba(51, 51, 51, 0.99);
 }
 
 .el-row {
