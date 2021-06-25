@@ -5,14 +5,15 @@
         <h1>阿玄好好學習區</h1>
       </el-header>
       <el-container class="el-context">
-        <el-aside>
-          <div class="el-row">
-            <label class="el-label">類型選擇</label>
-
-            <el-radio-group v-model="FCalctype">
-              <el-radio-button label="加法"></el-radio-button>
-              <el-radio-button label="減法"></el-radio-button>
-            </el-radio-group>
+        <el-aside width="200px">
+          <div class="el-row bk">
+            <label class="el-label">測驗類型</label>
+            <div class="bk">
+              <el-radio-group v-model="FCalctype">
+                <el-radio-button label="加法"></el-radio-button>
+                <el-radio-button label="減法"></el-radio-button>
+              </el-radio-group>
+            </div>
           </div>
           <div class="el-row">
             <label class="el-label">上邊界範圍</label>
@@ -34,8 +35,8 @@
             ></el-input>
           </div>
           <div class="el-row">
-            <el-button @click="doaction" size="medium">考試開始</el-button>
-            <el-button @click="doclear" size="medium">重新</el-button>
+            <el-button @click="doaction" class="vh80" type="primary" size="medium">考試開始</el-button>
+            <el-button @click="doclear" class="vh80"  size="medium">重新</el-button>
           </div>
         </el-aside>
         <el-main>
@@ -123,10 +124,8 @@ export default {
   background-color: rgba(60, 60, 60, 0.931);
   color: rgb(204, 204, 204);
   height: 75px;
-  // width: 100vh;
   left: 0;
   top: 0;
-  // position: fixed;
 
   h1 {
     line-height: 1.5;
@@ -146,9 +145,11 @@ export default {
 
 .el-context {
   border-bottom-style: 1px solid #999;
+  
   .el-label {
+    display: block;
     color: rgb(204, 204, 204);
-    margin: 55px 0 20px;
+    margin: 25px 0 20px;
   }
 }
 
@@ -159,6 +160,17 @@ export default {
 .el-row {
   margin: 20px 10px;
 }
+
+.bk {
+  display: block;
+}
+
+.vh80 {
+  // margin: 20%;
+  max-width: 180px;
+  width: 180px;
+}
+
 
 .cquy {
   width: 300px;
