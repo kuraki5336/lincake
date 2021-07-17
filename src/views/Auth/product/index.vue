@@ -50,10 +50,13 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, inject } from "vue";
 export default {
   setup() {
+    const mapStore = inject(`state`);
+    const { state } = mapStore;
     onMounted(() => {});
+    return { state };
   },
   data: () => ({
     FAstitle: "",
@@ -86,19 +89,18 @@ export default {
 
 .details {
   box-sizing: border-box;
-
+  display: flex;
   .detail_left {
-    float: left;
-    width: 50%;
-
+    flex: 1;
     img {
       width: 100%;
+      height: 300px;
+      object-fit: cover;
     }
   }
 
   .detail_right {
-    float: right;
-    width: 50%;
+    flex: 1;
 
     &__content {
       padding: 0 30px;

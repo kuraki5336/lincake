@@ -31,8 +31,11 @@
 </template>
 
 <script>
+import { provide } from "vue";
+import state from "@/Composition/products";
 export default {
   setup() {
+    provide("state", state);
     const images = ["bgc/001.jpg", "bgc/002.jpg"];
     return { images };
   },
