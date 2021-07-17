@@ -3,16 +3,17 @@
     <div class="products-details">
       <div class="products-details__inner-container">
         <div class="products-item">
-          <h2>12345678</h2>
+          <h2>{{state.getNowitem.name}}</h2>
           <div class="details">
             <div class="detail_left">
-              <img :src="'products/' + FAstitle + '/' + FItemno + '.jpg'" />
+              <img
+                :src="'products/' + state.nowas + '/' + state.nowitem + '.jpg'"
+              />
             </div>
             <div class="detail_right">
               <div class="detail_right__content">
                 <p>
-                  山形食パンに比べて中身のきめが細かく、もっちりとした食感で、トーストしても食べ応えがあります。
-                  サンドウィッチにすれば、具材との食感のバランスは最高です。
+                  {{state.getNowitem.description}}
                 </p>
                 <div class="detail_right__composition">
                   <van-row>
@@ -43,7 +44,6 @@
             </div>
           </div>
         </div>
-        <div class="similar_product"></div>
       </div>
     </div>
   </div>
@@ -51,22 +51,28 @@
 
 <script>
 import { onMounted, inject } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
 export default {
   setup() {
     const mapStore = inject(`state`);
-    const { state } = mapStore;
+    const state = mapStore;
+
+    onBeforeRouteLeave(() => {
+      // const answer = window.confirm(
+      //   "Do you really want to leave? you have unsaved changes!"
+      // );
+      // 取消導航
+      // if (!answer) return false;
+      state.nowas = ""
+      state.nowitem = ""
+    });
+
     onMounted(() => {});
+
     return { state };
   },
-  data: () => ({
-    FAstitle: "",
-    FItemno: "",
-  }),
-  mounted() {
-    /* 选项 API */
-    this.FAstitle = this.$route.query.astitle;
-    this.FItemno = this.$route.query.itemno;
-  },
+  data: () => ({}),
+  mounted() {},
   methods: {},
 };
 </script>

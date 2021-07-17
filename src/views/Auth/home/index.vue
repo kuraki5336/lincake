@@ -20,26 +20,37 @@
     <!-- 商品區 -->
     <div class="products-header-nav">
       <ul>
-        <li>餅乾</li>
-        <li>雪Q餅</li>
-        <li>船餅</li>
+        <li v-for="(item, index) in typelist" :key="index">
+          <a @click="gopoint(index)" href="#">{{ item }}</a>
+        </li>
       </ul>
     </div>
-
     <router-view />
+    <Products></Products>
   </div>
 </template>
 
 <script>
+import Products from "@/components/products";
 import { provide } from "vue";
-import state from "@/Composition/products";
+import store from "@/Composition/products";
 export default {
   setup() {
-    provide("state", state);
-    const images = ["bgc/001.jpg", "bgc/002.jpg"];
+    provide("state", store.state);
+    const images = ["products/bgc/001.jpg", "products/bgc/002.jpg"];
     return { images };
   },
-  data: () => ({}),
+  components: { Products },
+  data: () => ({
+    typelist: ["全部", "餅乾", "雪Q餅", "船餅"],
+  }),
+  methods: {
+    gopoint(index) {
+      this.$el
+        .querySelector(".dingyue_box")
+        .scrollIntoView({ block: "start", behavior: "smooth" });
+    },
+  },
 };
 </script>
 
@@ -96,15 +107,17 @@ export default {
     // width: 200px;
 
     margin: auto 20px;
-    color: aliceblue;
     list-style-type: none;
     // margin-bottom: 0.8em;
     line-height: 1.65em;
     text-align: center;
-  }
 
-  li:hover {
-    color: rgb(167, 138, 138);
+    a {
+      color: rgb(255, 255, 255);
+    }
+    a:hover {
+      color: rgb(167, 138, 138);
+    }
   }
 }
 

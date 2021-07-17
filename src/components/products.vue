@@ -1,12 +1,11 @@
 <template>
   <div>
-    {{ state.plu_items }}
     <div
-      v-for="(products, index) in state.plu_items"
+      v-for="(products, index) in state.display_plu"
       :key="index"
       class="tab_content products"
     >
-      <h2>{{ products.title }}</h2>
+      <h2 :ref="'point_'+index">{{ products.title }}</h2>
       <ul>
         <li
           v-for="(plu, index) in products.items"
@@ -14,7 +13,9 @@
           @click="dopluclick(products.astitle, plu.itemno)"
         >
           <a>
-            <img :src="products.astitle + '/' + plu.itemno + '.jpg'" />
+            <img
+              :src="'products/' + products.astitle + '/' + plu.itemno + '.jpg'"
+            />
           </a>
           <p>{{ plu.name }}</p>
         </li>
@@ -25,6 +26,7 @@
 
 <script>
 import { inject } from "vue";
+
 export default {
   setup() {
     const state = inject(`state`);
@@ -33,9 +35,11 @@ export default {
   data: () => ({}),
   methods: {
     dopluclick(title, no) {
+      this.state.nowas = title;
+      this.state.nowitem = no;
       this.$router.push({
-        path: "/product",
-        query: { astitle: title, itemno: no },
+        path: "product",
+        // query: { astitle: title, itemno: no },
       });
     },
   },
