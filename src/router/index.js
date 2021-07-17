@@ -11,6 +11,16 @@ const routes = [
         name: "content",
         component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/contentus"),
       },
+      {
+        path: "products",
+        name: "products",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
+      },
+      {
+        path: "product",
+        name: "product",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/product"),
+      },
     ],
   },
   {
