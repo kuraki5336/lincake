@@ -22,7 +22,7 @@ export default {
       .then(function() {
         if (!liff.isLoggedIn()) {
           liff.login({
-            redirectUri: "https://d3d128e5ca67.ngrok.io/liff",
+            redirectUri: "https://d3d128e5ca67.ngrok.io/liff/",
           });
         }
       })

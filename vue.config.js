@@ -1,7 +1,7 @@
 module.exports = {
-    publicPath: '/',
-
+    publicPath: '/lincake',
     css: {
         extract: false
-    }
+    },
+    outputDir: 'docs'
 }

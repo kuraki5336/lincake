@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from "vue-router";
-
 const routes = [
   {
     path: "/",
@@ -79,13 +78,8 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  // base: process.env.BASE_URL,
+  history: createWebHistory('/lincake/'),
   routes,
 });
-
-// router.beforeEach((to, from, next) => {
-//     // ...
-// })
 
 export default router;
