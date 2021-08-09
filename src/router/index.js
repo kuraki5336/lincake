@@ -7,20 +7,38 @@ const routes = [
     component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/home"),
     children: [
       {
-        path: "content",
-        name: "content",
-        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/contentus"),
+        path: "purchase",
+        name: "purchase",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/purchase"),
       },
-      // {
-      //   path: "products",
-      //   name: "products",
-      //   component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
-      // },
       {
-        path: "product",
-        name: "product",
-        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/product"),
+        path: "contact",
+        name: "contact",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/contact"),
       },
+      {
+        path: "liff",
+        name: "liff",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/liff"),
+      },
+      {
+        path: "products",
+        name: "products",
+        component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
+        children: [
+          {
+            path: "/",
+            name: "products",
+            component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
+          },
+          {
+            path: "product",
+            name: "product",
+            component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/product"),
+          },
+        ]
+      },
+
     ],
   },
   {

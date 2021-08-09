@@ -23,4 +23,9 @@ h2 {
   font-size: 14px;
   line-height: 1.4;
 }
+
+.contact {
+  max-width: 960px;
+  margin: auto;
+}
 </style>

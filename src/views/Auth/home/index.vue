@@ -4,51 +4,39 @@
     <div class="van-doc-header">
       <div class="van-doc-header__logo">蛋糕店</div>
       <ul class="van-doc-header__nav">
-        <li>商品介紹</li>
-        <li>採購說明</li>
-        <li>聯繫方式</li>
-      </ul>
-    </div>
-    <!-- <div class="van-doc-swipe"> -->
-    <van-swipe :autoplay="3000" style="height: 300px; width: 100%" lazy-render>
-      <van-swipe-item v-for="image in images" :key="image">
-        <img :src="image" />
-      </van-swipe-item>
-    </van-swipe>
-    <!-- </div> -->
-
-    <!-- 商品區 -->
-    <div class="products-header-nav">
-      <ul>
-        <li v-for="(item, index) in typelist" :key="index">
-          <a @click="gopoint(index)" href="#">{{ item }}</a>
+        <li
+          @click="doChangePage(index)"
+          v-for="(item, index) in headerlist"
+          :key="index"
+        >
+          {{ item }}
         </li>
       </ul>
     </div>
+
     <router-view />
-    <Products></Products>
   </div>
 </template>
 
 <script>
-import Products from "@/components/products";
-import { provide } from "vue";
-import store from "@/Composition/products";
 export default {
-  setup() {
-    provide("state", store.state);
-    const images = ["products/bgc/001.jpg", "products/bgc/002.jpg"];
-    return { images };
-  },
-  components: { Products },
+  setup() {},
   data: () => ({
-    typelist: ["全部", "餅乾", "雪Q餅", "船餅"],
+    headerlist: ["商品介紹", "採購說明", "聯繫方式"],
   }),
   methods: {
-    gopoint(index) {
-      this.$el
-        .querySelector(".dingyue_box")
-        .scrollIntoView({ block: "start", behavior: "smooth" });
+    doChangePage(index) {
+      switch (index) {
+        case 1:
+          this.$router.push("/purchase");
+          break;
+        case 2:
+          this.$router.push("/contact");
+          break;
+        default:
+          this.$router.push("/products");
+          break;
+      }
     },
   },
 };
@@ -81,6 +69,9 @@ export default {
       color: #0f0054;
       height: 47px;
       margin: 0 20px;
+    }
+    li:hover {
+      color: #0f005494;
     }
   }
 }

@@ -5,7 +5,9 @@
       :key="index"
       class="tab_content products"
     >
-      <h2 :ref="'point_'+index">{{ products.title }}</h2>
+      <h2 :id="'point_' + index" :ref="'point_' + index">
+        {{ products.title }}
+      </h2>
       <ul>
         <li
           v-for="(plu, index) in products.items"
@@ -38,8 +40,8 @@ export default {
       this.state.nowas = title;
       this.state.nowitem = no;
       this.$router.push({
-        path: "product",
-        // query: { astitle: title, itemno: no },
+        path: "/products/product",
+        query: { nowas: title, nowitem: no },
       });
     },
   },

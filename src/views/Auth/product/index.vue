@@ -3,17 +3,15 @@
     <div class="products-details">
       <div class="products-details__inner-container">
         <div class="products-item">
-          <h2>{{state.getNowitem.name}}</h2>
+          <h2>{{ state.getNowitem.name }}</h2>
           <div class="details">
             <div class="detail_left">
-              <img
-                :src="'products/' + state.nowas + '/' + state.nowitem + '.jpg'"
-              />
+              <img :src="state.nowas + '/' + state.nowitem + '.jpg'" />
             </div>
             <div class="detail_right">
               <div class="detail_right__content">
                 <p>
-                  {{state.getNowitem.description}}
+                  {{ state.getNowitem.description }}
                 </p>
                 <div class="detail_right__composition">
                   <van-row>
@@ -52,19 +50,15 @@
 <script>
 import { onMounted, inject } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
+
 export default {
   setup() {
     const mapStore = inject(`state`);
     const state = mapStore;
 
     onBeforeRouteLeave(() => {
-      // const answer = window.confirm(
-      //   "Do you really want to leave? you have unsaved changes!"
-      // );
-      // 取消導航
-      // if (!answer) return false;
-      state.nowas = ""
-      state.nowitem = ""
+      state.nowas = "";
+      state.nowitem = "";
     });
 
     onMounted(() => {});
@@ -72,7 +66,11 @@ export default {
     return { state };
   },
   data: () => ({}),
-  mounted() {},
+  mounted() {
+    console.log(this.$route.query);
+    this.state.nowas = this.$route.query.nowas;
+    this.state.nowitem = this.$route.query.nowitem;
+  },
   methods: {},
 };
 </script>
