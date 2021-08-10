@@ -1,8 +1,9 @@
 <template>
   <div>
     測試看看
-    <button @click="sendmessage()">送訊息</button>
-    <div class="detail_right__nutrition">
+    <button @click="sendmessage()">回應訊息</button>
+    <button @click="sendmessage2()">送訊息給朋友</button>
+    <div class="detail_right__nutrition" v-if="FShow">
       <van-row>
         <van-col span="6">版本</van-col>
         <van-col span="6">{{ lineVersion }}</van-col>
@@ -12,14 +13,21 @@
       <van-row>
         <van-col span="6">idToken1</van-col>
         <van-col span="6">{{ idToken1 }}</van-col>
+        <van-col span="6">idToken2</van-col>
+        <van-col span="6">{{ idToken2 }}</van-col>
+      </van-row>
+      <van-row>
+        <van-col span="6">UID</van-col>
+        <van-col span="6">{{ idToken2.sub }}</van-col>
         <van-col span="6">name</van-col>
         <van-col span="6">{{ idToken2.name }}</van-col>
       </van-row>
+
       <van-row>
-        <van-col span="6">idToken1</van-col>
-        <van-col span="6">{{ idToken1 }}</van-col>
-        <van-col span="6">name</van-col>
-        <van-col span="6">{{ idToken2.name }}</van-col>
+        <van-col span="6">IMG</van-col>
+        <van-col span="6"><img :src="idToken2.picture" alt=""/></van-col>
+        <van-col span="6">aud</van-col>
+        <van-col span="6">{{ idToken2.aud }}</van-col>
       </van-row>
     </div>
   </div>
@@ -36,6 +44,7 @@ export default {
     lineVersion: "",
     AccessToken: "",
     idToken1: "",
+    FShow: false,
   }),
   async mounted() {
     const info = await liff
@@ -54,6 +63,7 @@ export default {
           idToken1: liff.getIDToken(),
           idToken2: liff.getDecodedIDToken(),
           AccessToken: liff.getAccessToken(),
+          FShow: liff.isLoggedIn(),
         };
       })
       .catch(function(error) {
@@ -65,6 +75,7 @@ export default {
     this.idToken1 = info.idToken1;
     this.idToken2 = info.idToken2;
     this.AccessToken = info.AccessToken;
+    this.FShow = info.FShow;
   },
   methods: {
     sendmessage() {
@@ -81,6 +92,23 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    sendmessage2() {
+      if (liff.isApiAvailable("shareTargetPicker")) {
+        liff
+          .shareTargetPicker([
+            {
+              type: "text",
+              text: "嗨，好友想我嗎",
+            },
+          ])
+          .then(function(res) {
+            console.log(res);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
   },
 };
