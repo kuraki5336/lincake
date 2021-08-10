@@ -22,7 +22,7 @@
 export default {
   setup() {},
   data: () => ({
-    headerlist: ["商品介紹", "採購說明", "聯繫方式"],
+    headerlist: ["商品介紹", "採購說明", "聯繫方式", "liff"],
   }),
   methods: {
     doChangePage(index) {
@@ -32,6 +32,9 @@ export default {
           break;
         case 2:
           this.$router.push("/contact");
+          break;
+        case 3:
+          this.$router.push("/liff");
           break;
         default:
           this.$router.push("/products");

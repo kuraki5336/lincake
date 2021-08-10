@@ -26,18 +26,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
         children: [
           {
-            path: "/",
-            name: "products",
-            component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/products"),
-          },
-          {
             path: "product",
             name: "product",
             component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/product"),
           },
         ]
       },
-
     ],
   },
   {

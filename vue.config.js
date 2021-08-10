@@ -3,5 +3,8 @@ module.exports = {
     css: {
         extract: false
     },
-    outputDir: 'docs'
+    outputDir: 'docs',
+    devServer: {
+        disableHostCheck: true,
+    }
 }
