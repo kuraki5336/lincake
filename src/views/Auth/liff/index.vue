@@ -28,24 +28,25 @@
         <van-col span="6">idToken2</van-col>
         <van-col span="18">{{ idToken2 }}</van-col>
       </van-row>
+      <div class="template" v-if="idToken2">
+        <van-row>
+          <van-col span="6">UID</van-col>
+          <van-col span="18">{{ idToken2.sub }}</van-col>
+        </van-row>
+        <van-row>
+          <van-col span="6">name</van-col>
+          <van-col span="18">{{ idToken2.name }}</van-col>
+        </van-row>
 
-      <van-row>
-        <van-col span="6">UID</van-col>
-        <van-col span="18">{{ idToken2.sub }}</van-col>
-      </van-row>
-      <van-row>
-        <van-col span="6">name</van-col>
-        <van-col span="18">{{ idToken2.name }}</van-col>
-      </van-row>
-
-      <van-row>
-        <van-col span="6">IMG</van-col>
-        <van-col span="18"><img :src="idToken2.picture" alt=""/></van-col>
-      </van-row>
-      <van-row>
-        <van-col span="6">aud</van-col>
-        <van-col span="18">{{ idToken2.aud }}</van-col>
-      </van-row>
+        <van-row>
+          <van-col span="6">IMG</van-col>
+          <van-col span="18"><img :src="idToken2.picture" alt=""/></van-col>
+        </van-row>
+        <van-row>
+          <van-col span="6">aud</van-col>
+          <van-col span="18">{{ idToken2.aud }}</van-col>
+        </van-row>
+      </div>
     </div>
   </div>
 </template>
@@ -71,7 +72,7 @@ export default {
       .then(function() {
         if (!liff.isLoggedIn()) {
           liff.login({
-            redirectUri: "https://d3d128e5ca67.ngrok.io/liff/",
+            redirectUri: "https://kuraki5336.github.io/lincake",
           });
         }
         console.log(liff);
@@ -134,7 +135,7 @@ export default {
 <style>
 .liff_content {
   max-width: 600px;
-  margin: auto;
+  margin: 20px auto;
 }
 
 .van-col {

@@ -3,7 +3,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/home"),
+    component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/liff"),
     children: [
       {
         path: "purchase",
