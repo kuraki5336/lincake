@@ -23,8 +23,8 @@
         <van-col span="6">idToken1</van-col>
         <van-col span="18">{{ idToken1 }}</van-col>
       </van-row>
-
-      <van-row v-if="idToken2">
+      {{ idToken2 }}
+      <van-row>
         <van-col span="6">idToken2</van-col>
         <van-col span="18">{{ idToken2 }}</van-col>
       </van-row>
@@ -62,6 +62,7 @@ export default {
     lineVersion: "",
     AccessToken: "",
     idToken1: "",
+    idToken2: "",
     FShow: false,
   }),
   async mounted() {
@@ -87,11 +88,11 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
-    console.log("info");
-    console.log(info);
     this.lineVersion = info.lineVersion;
     this.idToken1 = info.idToken1;
     this.idToken2 = info.idToken2;
+    console.log(123);
+    console.log(!!this.idToken2);
     this.AccessToken = info.AccessToken;
     this.FShow = true;
   },
