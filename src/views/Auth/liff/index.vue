@@ -23,7 +23,6 @@
         <van-col span="6">idToken1</van-col>
         <van-col span="18">{{ idToken1 }}</van-col>
       </van-row>
-      {{ idToken2 }}
       <van-row>
         <van-col span="6">idToken2</van-col>
         <van-col span="18">{{ idToken2 }}</van-col>
@@ -91,8 +90,6 @@ export default {
     this.lineVersion = info.lineVersion;
     this.idToken1 = info.idToken1;
     this.idToken2 = info.idToken2;
-    console.log(123);
-    console.log(!!this.idToken2);
     this.AccessToken = info.AccessToken;
     this.FShow = true;
   },
