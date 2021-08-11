@@ -10,7 +10,7 @@
         送訊息給朋友
       </button>
     </div>
-    <div class="row" v-if="FShow">
+    <div class="row">
       <van-row>
         <van-col span="6">版本</van-col>
         <van-col span="18">{{ lineVersion }}</van-col>
@@ -24,7 +24,7 @@
         <van-col span="18">{{ idToken1 }}</van-col>
       </van-row>
 
-      <van-row>
+      <van-row v-if="idToken2">
         <van-col span="6">idToken2</van-col>
         <van-col span="18">{{ idToken2 }}</van-col>
       </van-row>
@@ -62,38 +62,38 @@ export default {
     lineVersion: "",
     AccessToken: "",
     idToken1: "",
-    FShow: true,
+    FShow: false,
   }),
   async mounted() {
-    const info = await liff
-      .init({
-        liffId: this.liffID,
-      })
-      .then(function() {
-        if (!liff.isLoggedIn()) {
-          liff.login({
-            redirectUri: "https://kuraki5336.github.io/lincake",
-          });
-        }
-        console.log(liff);
-        return {
-          lineVersion: liff.getLineVersion(),
-          idToken1: liff.getIDToken(),
-          idToken2: liff.getDecodedIDToken(),
-          AccessToken: liff.getAccessToken(),
-          FShow: liff.isLoggedIn(),
-        };
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    console.log("info");
-    console.log(info);
-    this.lineVersion = info.lineVersion;
-    this.idToken1 = info.idToken1;
-    this.idToken2 = info.idToken2;
-    this.AccessToken = info.AccessToken;
-    this.FShow = info.FShow;
+    // const info = await liff
+    //   .init({
+    //     liffId: this.liffID,
+    //   })
+    //   .then(function() {
+    //     if (!liff.isLoggedIn()) {
+    //       liff.login({
+    //         redirectUri: "https://kuraki5336.github.io/lincake",
+    //       });
+    //     }
+    //     console.log(liff);
+    //     return {
+    //       lineVersion: liff.getLineVersion(),
+    //       idToken1: liff.getIDToken(),
+    //       idToken2: liff.getDecodedIDToken(),
+    //       AccessToken: liff.getAccessToken(),
+    //       FShow: liff.isLoggedIn(),
+    //     };
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+    // console.log("info");
+    // console.log(info);
+    // this.lineVersion = info.lineVersion;
+    // this.idToken1 = info.idToken1;
+    // this.idToken2 = info.idToken2;
+    // this.AccessToken = info.AccessToken;
+    this.FShow = true;
   },
   methods: {
     sendmessage() {
@@ -132,16 +132,21 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .liff_content {
   max-width: 600px;
   margin: 20px auto;
 }
 
 .van-col {
+  overflow: scroll;
   line-height: 2rem;
   text-align: center;
   margin-bottom: 1px;
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
 }
 
 .van-col:nth-child(even) {
