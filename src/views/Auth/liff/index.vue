@@ -65,34 +65,34 @@ export default {
     FShow: false,
   }),
   async mounted() {
-    // const info = await liff
-    //   .init({
-    //     liffId: this.liffID,
-    //   })
-    //   .then(function() {
-    //     if (!liff.isLoggedIn()) {
-    //       liff.login({
-    //         redirectUri: "https://kuraki5336.github.io/lincake",
-    //       });
-    //     }
-    //     console.log(liff);
-    //     return {
-    //       lineVersion: liff.getLineVersion(),
-    //       idToken1: liff.getIDToken(),
-    //       idToken2: liff.getDecodedIDToken(),
-    //       AccessToken: liff.getAccessToken(),
-    //       FShow: liff.isLoggedIn(),
-    //     };
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
-    // console.log("info");
-    // console.log(info);
-    // this.lineVersion = info.lineVersion;
-    // this.idToken1 = info.idToken1;
-    // this.idToken2 = info.idToken2;
-    // this.AccessToken = info.AccessToken;
+    const info = await liff
+      .init({
+        liffId: this.liffID,
+      })
+      .then(function() {
+        if (!liff.isLoggedIn()) {
+          liff.login({
+            redirectUri: "https://kuraki5336.github.io/lincake",
+          });
+        }
+        console.log(liff);
+        return {
+          lineVersion: liff.getLineVersion(),
+          idToken1: liff.getIDToken(),
+          idToken2: liff.getDecodedIDToken(),
+          AccessToken: liff.getAccessToken(),
+          FShow: liff.isLoggedIn(),
+        };
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    console.log("info");
+    console.log(info);
+    this.lineVersion = info.lineVersion;
+    this.idToken1 = info.idToken1;
+    this.idToken2 = info.idToken2;
+    this.AccessToken = info.AccessToken;
     this.FShow = true;
   },
   methods: {
