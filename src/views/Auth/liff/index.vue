@@ -75,7 +75,6 @@ export default {
             redirectUri: "https://kuraki5336.github.io/lincake",
           });
         }
-        console.log(liff);
         return {
           lineVersion: liff.getLineVersion(),
           idToken1: liff.getIDToken(),
